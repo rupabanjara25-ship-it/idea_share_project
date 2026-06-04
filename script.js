@@ -14,6 +14,8 @@ let tagsInput = document.querySelector("#tags");
 
 let ideaCard = document.querySelector(".idea-card");
 
+
+let toast = document.getElementById("toast");
 // OPEN FORM
 function openForm() {
   overlay.classList.add("show");
@@ -46,7 +48,7 @@ function saveToLocalStorage() {
       category: card.querySelector(".category").innerText,
       description: card.querySelector(".desc").innerText,
       tags: Array.from(card.querySelectorAll(".single-tag"))
-        .map((tag) => tag.innerText.replace("#", ""))
+        .map((tag) => tag.innerText.replace("", ""))
         .join(","),
       author: card
         .querySelector(".author")
@@ -301,6 +303,7 @@ function createCard(
 
   // Add new comment
   cmtSentBtn.addEventListener("click", () => {
+    
     let value = cmtInput.value.trim();
     if (value === "") return;
 
@@ -319,6 +322,36 @@ function createCard(
     cmtCountSpan.textContent = comments.length;
     saveToLocalStorage();
   });
+
+cmtInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+
+    let value = cmtInput.value.trim();
+    if (value === "") return;
+
+    let newCommentObj = {
+      user: currentUser,
+      text: value,
+    };
+
+    comments.push(newCommentObj);
+
+    let commentEl = createCommentElement(
+      currentUser,
+      value,
+      comments,
+      cmtCountSpan
+    );
+
+    cmtBox.appendChild(commentEl);
+
+    cmtInput.value = "";
+    cmtCountSpan.textContent = comments.length;
+
+    saveToLocalStorage();
+  }
+});
 
   // ================= DELETE CARD =================
   deleteBtn.addEventListener("click", () => {
@@ -399,9 +432,17 @@ publishBtn.addEventListener("click", () => {
   descInput.value = "";
   tagsInput.value = "";
 
-  overlay.classList.remove("show");
+
+  toast.classList.add("show")
+  toasts();
+
 });
 
+  function toasts(){ setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1000);
+  overlay.classList.remove("show");
+};
 // ================= LOAD FROM STORAGE =================
 function loadCards() {
   let storedIdeas = JSON.parse(localStorage.getItem("ideas")) || [];

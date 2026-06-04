@@ -15,6 +15,14 @@ h4,
 #explore h2{
     font-family: 'Poppins', sans-serif;
 }
+
+.content{
+  text-align: center;
+  color: #a8a8aa;
+  font-size: 12px;
+  text-align: center;
+  line-height: 17px;
+}
 button{
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -147,6 +155,26 @@ header a:hover {
   animation: float 7s ease-in-out infinite;
 }
 
+
+.toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: rgb(105, 187, 220);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  /* font-size: 200px; */
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+}
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -363,11 +391,12 @@ select:focus {
 
 
 .idea-card {
-  max-width: 80%;
+  max-width: 60%;
   margin: 50px auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(1fr));
   gap: 25px;
+  border-radius: 16px;
 }
 
 .card {
@@ -447,7 +476,7 @@ select:focus {
 }
 
 .edit-btn {
-  background: #facc15;
+  background:#CA8A04;
   color: #111827;
 }
 
@@ -456,7 +485,7 @@ select:focus {
 }
 
 .delete-btn {
-  background: #ef4444;
+  background: #DC2626;
   color: white;
 }
 
@@ -671,6 +700,7 @@ footer a i {
   /* .action{
         width: 100%;
     } */
+/* contact */
 
   #animation {
     width: 100%;
